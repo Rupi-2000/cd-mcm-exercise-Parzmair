@@ -53,3 +53,7 @@ git checkout exercise/01-git-basics
 > **Important:** Do not clone the original repository directly — always work on your own fork so you can push changes and create Pull Requests.
 
 Each exercise branch contains a detailed `README.md` with instructions.
+
+## Authors
+- Prof. M. Kurz
+- Student Name
