@@ -4,12 +4,12 @@ This repository contains four progressive exercises for the Master course **Cont
 
 ## Overview
 
-| Exercise | Topic | Branch (Assignment) | Branch (Solution) |
-|----------|-------|--------------------|--------------------|
-| 1 | Git Basics: PRs, Interactive Rebase, Unit Tests | `exercise/01-git-basics` | `solution/01-git-basics` |
-| 2 | Microservice Architecture, Docker & GitHub Actions | `exercise/02-microservice-docker` | `solution/02-microservice-docker` |
-| 3 | CI Pipeline: SonarCloud, Matrix Builds, Linting | `exercise/03-ci-pipeline` | `solution/03-ci-pipeline` |
-| 4 | Vulnerability Scanning & Kubernetes Deployment | `exercise/04-security-k8s` | `solution/04-security-k8s` |
+| Exercise | Topic | Branch |
+|----------|-------|--------|
+| 1 | Git Basics: PRs, Interactive Rebase, Unit Tests | `exercise/01-git-basics` |
+| 2 | Microservice Architecture, Docker & GitHub Actions | `exercise/02-microservice-docker` |
+| 3 | CI Pipeline: SonarCloud, Matrix Builds, Linting | `exercise/03-ci-pipeline` |
+| 4 | Vulnerability Scanning & Kubernetes Deployment | `exercise/04-security-k8s` |
 
 ## Technology Stack
 
@@ -36,15 +36,20 @@ Throughout the exercises, you will build and evolve a RESTful Product Catalog AP
 
 ## Getting Started
 
+1. **Fork** this repository on GitHub (click the "Fork" button in the top right corner). All exercise branches will be included in your fork.
+2. **Clone** your fork:
+
 ```bash
-git clone https://github.com/mrckurz/CI-CD-MCM.git
+git clone https://github.com/<your-username>/CI-CD-MCM.git
 cd CI-CD-MCM
 ```
 
-Switch to the respective exercise branch:
+3. Switch to the respective exercise branch:
 
 ```bash
 git checkout exercise/01-git-basics
 ```
+
+> **Important:** Do not clone the original repository directly — always work on your own fork so you can push changes and create Pull Requests.
 
 Each exercise branch contains a detailed `README.md` with instructions.
