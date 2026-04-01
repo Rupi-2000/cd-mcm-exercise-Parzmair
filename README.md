@@ -54,6 +54,5 @@ git checkout exercise/01-git-basics
 
 Each exercise branch contains a detailed `README.md` with instructions.
 
-## Authors
-- Prof. M. Kurz
-- Student Name
+## Author
+- FH-Prof. Dr. Marc Kurz (marc.kurz@fh-hagenberg.at)
