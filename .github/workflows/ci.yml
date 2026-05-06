@@ -63,6 +63,5 @@ jobs:
           # Nur pushen, wenn wir auf dem main-Branch sind
           push: ${{ github.ref == 'refs/heads/main' }}
           tags: |
-            product-catalog:${{ github.sha }}
             ghcr.io/${{ steps.lowercase.outputs.owner }}/product-catalog:${{ github.sha }}
             ghcr.io/${{ steps.lowercase.outputs.owner }}/product-catalog:latest
