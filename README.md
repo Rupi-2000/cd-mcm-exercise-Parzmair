@@ -12,11 +12,13 @@
 
 ## Prerequisites
 
-- Completed Exercise 3 (CI pipeline with quality gates)
+- Familiarity with CI pipelines (covered in Exercise 3) — this branch is **self-contained**, so you can work on it without having finished Exercise 3 first.
 - Docker Desktop installed
 - [Minikube](https://minikube.sigs.k8s.io/docs/start/) installed
 - [kubectl](https://kubernetes.io/docs/tasks/tools/) installed
 - [Trivy](https://aquasecurity.github.io/trivy/) installed (optional, for local scanning)
+
+> **Note on `ci.yml`:** The pipeline contains two leftover TODOs from Exercise 3 (`Add lint job`, `Add sonarcloud job`). Those are **not graded in Exercise 4** — leave them as-is or solve them for your own benefit. Exercise 4 only requires the two new jobs marked `vulnerability-scan` and `trivy-scan` (see Task 1 and Task 2).
 
 ## What's New in This Exercise
 
