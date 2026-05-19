@@ -15,8 +15,6 @@ coverage.html
 
 # Go workspace
 go.work
-.gocache/
-.gomodcache/
 
 # IDE
 .idea/

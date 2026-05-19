@@ -34,7 +34,7 @@ func main() {
 		}
 
 		if err := pgStore.EnsureTable(); err != nil {
-			_ = pgStore.DB.Close()
+			pgStore.DB.Close()
 			log.Fatalf("Failed to create table: %v", err)
 		}
 
