@@ -47,7 +47,7 @@ func (s *PostgresStore) GetAll() ([]model.Product, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 
 	var products []model.Product
 	for rows.Next() {
@@ -60,7 +60,7 @@ func (s *PostgresStore) GetAll() ([]model.Product, error) {
 	if products == nil {
 		products = []model.Product{}
 	}
-	return products, nil
+	return products, rows.Err()
 }
 
 // GetByID returns a product by ID.
@@ -92,7 +92,10 @@ func (s *PostgresStore) Update(id int, p model.Product) (model.Product, error) {
 	if err != nil {
 		return p, err
 	}
-	rows, _ := result.RowsAffected()
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return p, err
+	}
 	if rows == 0 {
 		return p, ErrNotFound
 	}
@@ -106,7 +109,10 @@ func (s *PostgresStore) Delete(id int) error {
 	if err != nil {
 		return err
 	}
-	rows, _ := result.RowsAffected()
+	rows, err := result.RowsAffected()
+	if err != nil {
+		return err
+	}
 	if rows == 0 {
 		return ErrNotFound
 	}

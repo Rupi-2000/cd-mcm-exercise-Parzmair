@@ -63,7 +63,7 @@ func (h *PostgresHandler) CreateProduct(w http.ResponseWriter, r *http.Request) 
 		respondError(w, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
-	defer r.Body.Close()
+	defer func() { _ = r.Body.Close() }()
 
 	if !p.Validate() {
 		respondError(w, http.StatusBadRequest, "Invalid product: name required, price must be >= 0")
@@ -85,7 +85,7 @@ func (h *PostgresHandler) UpdateProduct(w http.ResponseWriter, r *http.Request) 
 		respondError(w, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
-	defer r.Body.Close()
+	defer func() { _ = r.Body.Close() }()
 
 	updated, err := h.Store.Update(id, p)
 	if err != nil {

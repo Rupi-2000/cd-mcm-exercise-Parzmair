@@ -12,11 +12,10 @@ linters:
     - unused
     - ineffassign
     - gosimple
-    # TODO: Enable additional linters:
-    # - gofmt
-    # - gocyclo
-    # - misspell
-    # - gocritic
+    - gofmt
+    - gocyclo
+    - misspell
+    - gocritic
 
 linters-settings:
   errcheck:
