@@ -1,5 +1,7 @@
 # Exercise 3: CI Pipeline -- SonarCloud, Matrix Builds & Linting
 
+[![CI Status](https://github.com/Rupi-2000/cd-mcm-exercise-Parzmair/actions/workflows/ci.yml/badge.svg)](https://github.com/Rupi-2000/cd-mcm-exercise-Parzmair/actions/workflows/ci.yml)
+
 **Course:** Continuous Delivery in Agile Software Development (Master)
 **Points:** 24
 
