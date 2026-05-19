@@ -2,12 +2,43 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, "exercise/**"]
   pull_request:
     branches: [main]
 
 jobs:
   test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: ["1.25", "1.26"]
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Download dependencies
+        run: go mod download
+
+      - name: Run tests with coverage
+        run: go test -v -coverprofile=coverage.out ./...
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.os }}-go-${{ matrix.go-version }}
+          path: coverage.out
+
+      - name: Build
+        run: go build -o api-server ./cmd/api
+
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,47 +52,46 @@ jobs:
       - name: Download dependencies
         run: go mod download
 
-      - name: Run tests
-        run: go test -v ./...
-
-      - name: Build
-        run: go build -o api-server ./cmd/api
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: v1.64.8
+          install-mode: goinstall
+          args: --config=.golangci.yml
 
   docker-build:
-    needs: test
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write # Nötig für den Push in die GitHub Container Registry (Bonus)
-      
+    needs: test
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to GitHub Container Registry
-        # Nur auf dem main-Branch ausführen
-        if: github.ref == 'refs/heads/main'
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Convert Repository Owner to lowercase
-        # Docker-Tags dürfen keine Großbuchstaben enthalten
-        id: lowercase
-        run: |
-          echo "owner=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
-
-      - name: Build and Push Docker Image
+      - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          # Nur pushen, wenn wir auf dem main-Branch sind
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: |
-            ghcr.io/${{ steps.lowercase.outputs.owner }}/product-catalog:${{ github.sha }}
-            ghcr.io/${{ steps.lowercase.outputs.owner }}/product-catalog:latest
+          push: false
+          tags: product-catalog:${{ github.sha }}
+
+  sonarcloud:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-ubuntu-latest-go-1.26
+          path: .
+
+      - name: Run SonarCloud scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
