@@ -3,20 +3,22 @@ FROM golang:1.26-alpine AS builder
 
 WORKDIR /app
 
+RUN apk --no-cache add ca-certificates
+
 COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build -o /api-server ./cmd/api
+RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o /api-server ./cmd/api
 
 # Runtime stage
-FROM alpine:3.19
+FROM scratch
 
-RUN apk --no-cache add ca-certificates
-
-WORKDIR /app
-COPY --from=builder /api-server .
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=builder /api-server /api-server
 
 EXPOSE 8080
 
-ENTRYPOINT ["./api-server"]
+USER 65532:65532
+
+ENTRYPOINT ["/api-server"]
