@@ -3,14 +3,14 @@
   "Trivy": {
     "Version": "0.69.3"
   },
-  "ReportID": "019e6fc1-fab9-7204-8aa3-b7adcf0e6071",
-  "CreatedAt": "2026-05-28T20:04:04.1531322+02:00",
-  "ArtifactID": "sha256:ade64d105450d27b9502dd575eacae897be85582d4baeef397782b33e16fea32",
+  "ReportID": "019e7815-a482-7123-96fb-43a6d415b6d3",
+  "CreatedAt": "2026-05-30T10:52:24.8340747+02:00",
+  "ArtifactID": "sha256:3996e94b41321b47e47e90821c818700900509281c93ccd32d8d1966368f7bbe",
   "ArtifactName": "product-catalog:latest",
   "ArtifactType": "container_image",
   "Metadata": {
     "Size": 7387136,
-    "ImageID": "sha256:e81ee121c6095af61e226fe951146ee0b63271eba46e2e6af879b958567dc893",
+    "ImageID": "sha256:58cc4963c261bc28102fb7274968c68b707b3ffb4b2122f48f12e8749aabacd3",
     "DiffIDs": [
       "sha256:e9af15c9b7140ce6f91e696b8f41a9414df56aec5a05d5a45752d30056d8b761",
       "sha256:8c46718699dac1650731e7e739bb1b1f50b4069e4f178d48f2ec3a568f4e6b43"
@@ -19,7 +19,7 @@
       "product-catalog:latest"
     ],
     "RepoDigests": [
-      "product-catalog@sha256:e81ee121c6095af61e226fe951146ee0b63271eba46e2e6af879b958567dc893"
+      "product-catalog@sha256:58cc4963c261bc28102fb7274968c68b707b3ffb4b2122f48f12e8749aabacd3"
     ],
     "Reference": "product-catalog:latest",
     "ImageConfig": {
